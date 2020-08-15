@@ -3,22 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Test5
 {
@@ -133,7 +122,6 @@ namespace Test5
                     maps.Add(ControlMaps[i]);
                     CheckBoxesActive(false);
                     attackCheck.IsChecked = false;
-                    defendCheck.IsChecked = false;
                 }
 
             }
@@ -174,6 +162,7 @@ namespace Test5
             DataColumn attackDefend = new DataColumn("Attacked", typeof(bool));
             DataColumn win = new DataColumn("Win", typeof(bool));
             DataColumn role = new DataColumn("Role", typeof(string));
+            DataColumn map = new DataColumn("Map", typeof(string));
 
             try
             {
@@ -181,7 +170,8 @@ namespace Test5
                 dt.Columns.Add(mapType);
                 dt.Columns.Add(attackDefend);
                 dt.Columns.Add(win);
-                dt.Columns.Add(role); 
+                dt.Columns.Add(role);
+                dt.Columns.Add(map);
             }
             catch
             {
@@ -270,6 +260,8 @@ namespace Test5
             TableSearch("Type = 'Hybrid'", gs.HybridWins, gs.HybridGames, GSHybridWinPercentage);
             TableSearch("Type = 'Assault'", gs.AssaultWins, gs.AssaultGames, GSAssaultWinPercentage);
             TableSearch("Type = 'Control'", gs.ControlWins, gs.ControlGames, GSControlWinPercentage);
+            TableSearch("Attacked = True", gs.AttackWins, gs.AttackGames, GSAttackWinPercentage);
+            TableSearch("Attacked = False", gs.DefendWins, gs.DefendGames, GSDefendWinPercentage);
             GSTotalGames.Text = gs.Games.ToString();
             GSTotalWins_TextBox.Text = gs.Wins.ToString();
         }
@@ -283,6 +275,9 @@ namespace Test5
             TableSearch("Role = 'Tank' AND Type = 'Assault'", td.AssaultWins, td.AssaultTotal, TankAssaultWinPercentage_Textbox);
             TableSearch("Role ='Tank' AND Type = 'Escort'", td.EscortWins, td.AssaultTotal, TankEscortWinPercentage_Textbox);
             TableSearch("Role = 'Tank' AND Type = 'Hybrid'", td.HybridWins, td.HybridTotal, TankHybridWinPercentage_TextBox);
+            TableSearch("Role = 'Tank' AND Attacked = True", td.AttackWin, td.AttackTotal, TankAttackWinPercentage_Textbox);
+            TableSearch("Role = 'Tank' AND Attacked = False", td.DefendWin, td.DefendTotal, TankDefendWinPercentage_Textbox);
+
 
         }
 
@@ -295,6 +290,8 @@ namespace Test5
             TableSearch("Role = 'Heals' AND Type = 'Assault'", hd.AssaultWins, hd.AssaultTotal, HealsAssaultWinPercentage_Textbox);
             TableSearch("Role = 'Heals' AND Type = 'Escort'", hd.EscortWins, hd.EscortTotal, HealsEscortWinPercentage_Textbox);
             TableSearch("Role = 'Heals' AND Type = 'Hybrid'", hd.HybridWins, hd.HybridTotal, HealsHybridWinPercentage_TextBox);
+            TableSearch("Role = 'Heals' AND Attacked = True", hd.AttackWin, hd.AttackTotal, HealsAttackWinPercentage_TextBox);
+            TableSearch("Role = 'Heals' AND Attacked = False", hd.DefendWin, hd.DefendTotal, HealsDefendWinPercentage_TextBox);
         }
 
 
@@ -306,7 +303,8 @@ namespace Test5
             TableSearch("Role = 'DPS' AND Type = 'Assault'", dd.AssaultWins, dd.AssaultTotal, DPSAssaultWinPercentage_Textbox);
             TableSearch("Role = 'DPS' AND Type = 'Escort'", dd.EscortWins, dd.EscortTotal, DPSEscortWinPercentage_Textbox);
             TableSearch("Role = 'DPS' AND Type = 'Hybrid'", dd.HybridWins, dd.HybridTotal, DPSHybridWinPercentage_TextBox);
-            //
+            TableSearch("Role = 'DPS' AND Attacked = True", dd.AttackWin, dd.AttackTotal, DPSAttackWinPercentage_TextBox);
+            TableSearch("Role = 'DPS' AND Attacked = False", dd.DefendWin, dd.DefendTotal, DPSDefendWinPercentage_TextBox);
         }
 
         public void Stats()
@@ -364,6 +362,16 @@ namespace Test5
             row[2] = attackCheck.IsChecked;
             row[3] = winCheckBox.IsChecked;
             row[4] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
+            if (mapComboBox.SelectedItem != null)
+            {
+               row[5] = mapComboBox.SelectedItem.ToString();
+                
+            }
+            else
+            {
+                MessageBox.Show("No Map selected. Please select a Map", "Map Error", MessageBoxButton.OK);
+                return;
+            }
             dt.Rows.Add(row);
             gs.totalGames++;
 
@@ -384,33 +392,44 @@ namespace Test5
             if (isActive)
             {
                 attackCheck.IsEnabled = true;
-                defendCheck.IsEnabled = true;
             }
             else
             {
                 attackCheck.IsEnabled = false;
-                defendCheck.IsEnabled = false;
             }
         }
 
         private void TextBoxBackgroundColor(float meteredNumber, TextBox textBox,  float lowCutoff, float highCutoff)
         {
-            if(meteredNumber <= lowCutoff)
+            if (meteredNumber <= 25)
             {
                 textBox.Background = Brushes.Red;
             }
-            else if(meteredNumber >= highCutoff)
+            else if (meteredNumber > 25 && meteredNumber <= 35)
             {
-                textBox.Background = Brushes.Green;
+                textBox.Background = Brushes.IndianRed;
             }
-            else if(meteredNumber > lowCutoff && meteredNumber < highCutoff)
+            else if (meteredNumber > 35 && meteredNumber <= 45)
+            {
+                textBox.Background = Brushes.LightYellow;
+            }
+            else if(meteredNumber > 45 && meteredNumber <= 55)
             {
                 textBox.Background = Brushes.Yellow;
             }
-            else
+            else if (meteredNumber > 55 && meteredNumber <= 65)
             {
-                textBox.Background = Brushes.LightCyan;
+                textBox.Background = Brushes.LightGreen;
             }
+            else if (meteredNumber > 65 && meteredNumber <= 75)
+            {
+                textBox.Background = Brushes.LawnGreen;
+            }
+            else if (meteredNumber > 75)
+            {
+                textBox.Background = Brushes.Green;
+            }
+
         }
 
         public void TableSearch(string selectFilterString, float totalWins, float totalGames, TextBox textbox)

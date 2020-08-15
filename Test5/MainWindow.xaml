@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test5"
         mc:Ignorable="d"
-        Title="Overwatch Game Tracker" Height="400" Width="800">
+        Title="Overwatch Game Tracker" Height="417" Width="892">
     <Grid Background="White" Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Left" Margin="103,219,0,0" VerticalAlignment="Top" Width="75" Click="submitButton_Click" FontSize="14" Height="23"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,53,0,0" TextWrapping="Wrap" Text="Role:" VerticalAlignment="Top" Height="23" Width="120" FontSize="22" TextAlignment="Center" FontFamily="Sitka Banner"/>
@@ -20,11 +21,9 @@
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="10,109,0,0" TextWrapping="Wrap" Text="Map:" VerticalAlignment="Top" Height="23" Width="120" FontSize="22" TextAlignment="Center" FontFamily="Sitka Banner"/>
         <ComboBox x:Name="mapComboBox" HorizontalAlignment="Left" Margin="160,108,0,0" VerticalAlignment="Top" Width="157" Height="22" SelectedIndex="0"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,137,0,0" Text="Attack/Defend:" VerticalAlignment="Top" Height="23" Width="120" FontSize="19" TextAlignment="Center" FontFamily="Sitka Banner"/>
-        <RadioButton x:Name="attackCheck" Content="Attack" HorizontalAlignment="Left" Margin="160,138,0,0" VerticalAlignment="Top" IsChecked="True" Height="15" Width="52"/>
-        <RadioButton x:Name="defendCheck" Content="Defend" HorizontalAlignment="Left" Margin="259,138,0,0" VerticalAlignment="Top" Height="15" Width="58"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,137,0,0" Text="Attacked:" VerticalAlignment="Top" Height="23" Width="120" FontSize="22" TextAlignment="Center" FontFamily="Sitka Banner"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,165,0,0" TextWrapping="Wrap" Text="Win:" VerticalAlignment="Top" Height="23" Width="120" FontSize="22" TextAlignment="Center" FontFamily="Sitka Banner"/>
-        <CheckBox x:Name="winCheckBox" Content="" HorizontalAlignment="Left" Margin="160,171,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.522,0.633" Height="20" Width="18"/>
+        <CheckBox x:Name="winCheckBox" Content="" HorizontalAlignment="Left" Margin="160,170,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.522,0.633" Height="20" Width="18"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,81,0,0" TextWrapping="Wrap" Text="Map Type:" VerticalAlignment="Top" Height="23" Width="120" FontSize="22" TextAlignment="Center" FontFamily="Sitka Banner"/>
         <ComboBox x:Name="mapTypeComboBox" HorizontalAlignment="Left" Margin="160,81,0,0" VerticalAlignment="Top" Width="157" SelectionChanged="mapTypeComboBox_SelectionChanged" Height="22">
             <ComboBoxItem Content="Hybrid"/>
@@ -34,98 +33,159 @@
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Match Setup" VerticalAlignment="Top" Height="48" Width="395" TextAlignment="Center" FontSize="36" FontFamily="Sitka Banner" FontWeight="Bold" TextDecorations="Underline"/>
         <Button x:Name="undoButton" Content="Undo" HorizontalAlignment="Left" Margin="183,219,0,0" VerticalAlignment="Top" Width="75" Click="undoButton_Click" FontSize="14" Height="23"/>
-        <TabControl Grid.Column="1" HorizontalAlignment="Left" Height="350
-                    " Margin="10,10,0,0" VerticalAlignment="Top" Width="375">
+        <TabControl Grid.Column="1" Grid.ColumnSpan="2">
             <TabItem Header="General Stats">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0*"/>
-                        <ColumnDefinition Width="19*"/>
-                        <ColumnDefinition Width="22*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Total Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSWinPercentage" HorizontalAlignment="Left" Height="23" Margin="68,10,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="Total Games:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSTotalGames" HorizontalAlignment="Left" Height="23" Margin="68,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,94,0,0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSControlWinPercentage" HorizontalAlignment="Left" Height="23" Margin="68,94,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="Wrap" Text="Escort Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSEscortWinPercentage" HorizontalAlignment="Left" Height="23" Margin="68,122,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Hybrid Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSHybridWinPercentage" HorizontalAlignment="Left" Height="23" Margin="68,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,178,0,0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSAssaultWinPercentage" HorizontalAlignment="Left" Height="23" Margin="68,178,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="Total Wins:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="23" Width="171" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="GSTotalWins_TextBox" HorizontalAlignment="Left" Height="23" Margin="68,66,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="2"/>
-                    <Button x:Name="ClearSession" Content="Clear Data" HorizontalAlignment="Left" Margin="150,292,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Grid.Column="1" Click="ClearSession_Click"/>
+                    <StackPanel Grid.Column="0" Margin="10 0 10 10">
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Games:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Wins:"    VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+
+
+
+                        <Button x:Name="ClearSession" Content="Clear Data" HorizontalAlignment="Left" Margin="150,292,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Grid.Column="1" Click="ClearSession_Click"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="10 0 10 10">
+                        <TextBox x:Name="GSWinPercentage"        Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSTotalGames"           Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSControlWinPercentage" Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSEscortWinPercentage"  Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSHybridWinPercentage"  Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSAssaultWinPercentage" Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSTotalWins_TextBox"    Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSDefendWinPercentage"  Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+                        <TextBox x:Name="GSAttackWinPercentage"  Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
+
+                    </StackPanel>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Tank Stats">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="29*"/>
-                        <ColumnDefinition Width="144*"/>
-                        <ColumnDefinition Width="196*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TankWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="66,10,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" Text="Games:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TankTotalGames_TextBox" HorizontalAlignment="Left" Height="23" Margin="66,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBox x:Name="TankControlWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="66,66,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TankAssaultWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="66,94,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,94,0,0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TankEscortWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="66,122,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="Wrap" Text="Escort Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TankHybridWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="66,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Hybrid Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
+                    <StackPanel Grid.Column="0" Margin="10 0 10 10">
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.ColumnSpan="1"/>
+
+
+
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Column="1" Margin="10 0 10 10">
+                        <TextBox x:Name="TankWinPercentage_TextBox"        HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankTotalGames_TextBox"           HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankControlWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankAssaultWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankEscortWinPercentage_Textbox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankHybridWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankDefendWinPercentage_Textbox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="TankAttackWinPercentage_Textbox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                    </StackPanel>
+                    
+                    
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Healer Stats">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="109*"/>
-                        <ColumnDefinition Width="260*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="HealsWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="130,10,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" Text="Games:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="HealsTotalGames_TextBox" HorizontalAlignment="Left" Height="23" Margin="130,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBox x:Name="HealsControlWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="130,66,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="HealsAssaultWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="130,94,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,94,0,0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="HealsEscortWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="130,122,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="Wrap" Text="Escort Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="HealsHybridWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="130,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Hybrid Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161" Grid.ColumnSpan="2"/>
+
+                    <StackPanel Grid.Column="0" Margin="10 0 10 10">
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150" Grid.Column="0"/>
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="10 0 10 10">
+                        <TextBox x:Name="HealsWinPercentage_TextBox"        HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsTotalGames_TextBox"           HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsControlWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsAssaultWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsEscortWinPercentage_Textbox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsHybridWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsDefendWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+                        <TextBox x:Name="HealsAttackWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Grid.Column="1"/>
+
+
+                    </StackPanel>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="DPS Stats">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="DPSWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="239,10,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" Text="Games:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
-                    <TextBox x:Name="DPSTotalGames_TextBox" HorizontalAlignment="Left" Height="23" Margin="239,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBox x:Name="DPSControlWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="239,66,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
-                    <TextBox x:Name="DPSAssaultWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="239,94,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,94,0,0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
-                    <TextBox x:Name="DPSEscortWinPercentage_Textbox" HorizontalAlignment="Left" Height="23" Margin="239,122,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,122,0,0" TextWrapping="Wrap" Text="Escort Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
-                    <TextBox x:Name="DPSHybridWinPercentage_TextBox" HorizontalAlignment="Left" Height="23" Margin="239,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Hybrid Win %:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="21" Width="161"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="10 0 10 10">
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="18" FontFamily="Sitka Banner" Height="25" Width="150"/>
+
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="10 0 10 10">
+                        <TextBox x:Name="DPSWinPercentage_TextBox"        HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSTotalGames_TextBox"           HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSControlWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSAssaultWinPercentage_Textbox" HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSEscortWinPercentage_Textbox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSHybridWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSDefendWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+                        <TextBox x:Name="DPSAttackWinPercentage_TextBox"  HorizontalAlignment="Right" Height="25" Margin="0 10 0 0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1"/>
+
+
+                    </StackPanel>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Match History">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dg" HorizontalAlignment="Left" Height="322" VerticalAlignment="Top" Width="369" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto"/>
+                    <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="14"/>
 
                 </Grid>
             </TabItem>
 
         </TabControl>
-        <Button x:Name="Save_Session_Button" Content="Save Session" HorizontalAlignment="Left" Margin="55,339,0,0" VerticalAlignment="Top" Width="75" Click="Save_Session_Button_Click"/>
+        <Button x:Name="Save_Session_Button" Content="Save Session" HorizontalAlignment="Left" Margin="103,337,0,0" VerticalAlignment="Top" Width="75" Click="Save_Session_Button_Click"/>
+        <CheckBox x:Name="attackCheck" Content="" HorizontalAlignment="Left" Margin="160,142,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
