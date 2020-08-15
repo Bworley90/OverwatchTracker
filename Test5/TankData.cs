@@ -9,19 +9,19 @@ namespace Test5
     [Serializable]
     public class TankData
     {
-        public float tankTotal;
-        public float tankWins;
-        public float tankEscortTotal;
-        public float tankEscortWins;
-        public float tankAssaultWins;
-        public float tankAssaultTotal;
-        public float tankControlTotal;
-        public float tankControlWins;
-        public float tankHybridWins;
-        public float tankHybridTotal;
-        public float tankDefendWin;
-        public float tankDefendTotal;
-        public float tankAttackTotal;
-        public float tankAttackWin;
+        public float Total;
+        public float Wins;
+        public float EscortTotal;
+        public float EscortWins;
+        public float AssaultWins;
+        public float AssaultTotal;
+        public float ControlTotal;
+        public float ControlWins;
+        public float HybridWins;
+        public float HybridTotal;
+        public float DefendWin;
+        public float DefendTotal;
+        public float AttackTotal;
+        public float AttackWin;
     }
 }

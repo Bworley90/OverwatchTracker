@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Test5")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Overwatch Tracker")]
+[assembly: AssemblyDescription("A program to track Quickplay matches.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Test5")]
+[assembly: AssemblyCompany("Renown")]
+[assembly: AssemblyProduct("Overwatch Tracker")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

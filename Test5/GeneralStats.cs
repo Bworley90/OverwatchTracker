@@ -13,41 +13,41 @@ namespace Test5
     [Serializable]
     public class GeneralStats
     {
-        public float totalWins;
-        public float totalGames;
-        public float totalAssaultGames;
-        public float totalAssaultWins;
-        public float totalHybridWins;
-        public float totalHybridGames;
-        public float totalEscortGames;
-        public float totalEscortWins;
-        public float totalControlWins;
-        public float totalControlGames;
-        public float totalDefendGames;
-        public float totalDefendWins;
-        public float totalAttackWins;
-        public float totalAttackGames;
+        public float Wins;
+        public float Games;
+        public float AssaultGames;
+        public float AssaultWins;
+        public float HybridWins;
+        public float HybridGames;
+        public float EscortGames;
+        public float EscortWins;
+        public float ControlWins;
+        public float ControlGames;
+        public float DefendGames;
+        public float DefendWins;
+        public float AttackWins;
+        public float AttackGames;
         
         public void ResetGeneralStats()
         {
             GeneralStats gs = new GeneralStats();
-            gs.totalWins = 0;
-            gs.totalGames = 0;
-            gs.totalAssaultGames = 0;
-            gs.totalAssaultWins = 0;
-            gs.totalHybridWins = 0;
-            gs.totalHybridGames = 0;
-            gs.totalEscortGames = 0;
-            gs.totalEscortWins = 0;
-            gs.totalControlWins = 0;
-            gs.totalControlGames = 0;
-            gs.totalDefendGames = 0;
-            gs.totalDefendWins = 0;
-            gs.totalAttackWins = 0;
-            gs.totalAttackGames = 0;
+            gs.Wins = 0;
+            gs.Games = 0;
+            gs.AssaultGames = 0;
+            gs.AssaultWins = 0;
+            gs.HybridWins = 0;
+            gs.HybridGames = 0;
+            gs.EscortGames = 0;
+            gs.EscortWins = 0;
+            gs.ControlWins = 0;
+            gs.ControlGames = 0;
+            gs.DefendGames = 0;
+            gs.DefendWins = 0;
+            gs.AttackWins = 0;
+            gs.AttackGames = 0;
 
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("GeneralStatsBin", FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            Stream stream = new FileStream("GeneralStats", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
             formatter.Serialize(stream, gs);
             stream.Close();
         }

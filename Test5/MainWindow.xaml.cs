@@ -34,20 +34,9 @@ namespace Test5
         DataTable dt = new DataTable();
         GeneralStats gs = new GeneralStats();
         TankData td = new TankData();
-        public int index = 1;
-        //public float winCount = 0;
-        //public float totalGames;
-
-        // Role Variables
-        public float dpsTotalGames = 0;
-        public float dpsWins = 0;
-        
-
-       
-
-        public float healsTotalGames = 0;
-        public float healsWins = 0;
-
+        HealsData hd = new HealsData();
+        DPSData dd = new DPSData();
+        public int gameNumber = 1;
 
         // Map Lists
         List<string> maps = new List<string>();
@@ -60,28 +49,13 @@ namespace Test5
         public MainWindow()
         {
             InitializeComponent();
-            SetupTable();
             AddAllMaps();
-            //LoadGeneralStatsFromBin();
-            //UpdateGeneralStats();
-        }
+            SetupTable();
+            LoadGeneralStatsFromBin();
+            Stats();
+            
 
 
-       
-
-
-        private void CheckBoxesActive(bool isActive)
-        {
-            if(isActive)
-            {
-                attackCheck.IsEnabled = true;
-                defendCheck.IsEnabled = true;
-            }
-            else
-            {
-                attackCheck.IsEnabled = false;
-                defendCheck.IsEnabled = false;
-            }
         }
 
 
@@ -195,229 +169,40 @@ namespace Test5
 
         public void SetupTable()
         {
-            DataColumn matchNumber = new DataColumn("Match #", typeof(int));
-            DataColumn mapType = new DataColumn("Map Type", typeof(string));
-            DataColumn attack = new DataColumn("Attack", typeof(bool));
-            DataColumn defend = new DataColumn("Defend", typeof(bool));
-            DataColumn win = new DataColumn("Win", typeof(string));
+            DataColumn matchNumber = new DataColumn("Match", typeof(int));
+            DataColumn mapType = new DataColumn("Type", typeof(string));
+            DataColumn attackDefend = new DataColumn("Attacked", typeof(bool));
+            DataColumn win = new DataColumn("Win", typeof(bool));
             DataColumn role = new DataColumn("Role", typeof(string));
 
-            dt.Columns.Add(matchNumber);
-            dt.Columns.Add(mapType);
-            dt.Columns.Add(attack);
-            dt.Columns.Add(defend);
-            dt.Columns.Add(win);
-            dt.Columns.Add(role); // Here
+            try
+            {
+                dt.Columns.Add(matchNumber);
+                dt.Columns.Add(mapType);
+                dt.Columns.Add(attackDefend);
+                dt.Columns.Add(win);
+                dt.Columns.Add(role); 
+            }
+            catch
+            {
+                Trace.WriteLine("Table already created");
+            }
+            
 
             dg.ItemsSource = dt.DefaultView;
         }
 
-        private void submitButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataRow row = dt.NewRow();
 
-            // Row 0 Match Number
-            row[0] = index;
-
-
-
-            //Row 1 Map Name
-            if (mapTypeComboBox.SelectedItem != null)
-            {
-                row[1] = ((ComboBoxItem)mapTypeComboBox.SelectedItem).Content.ToString();
-            }
-            else
-            {
-                return;
-            }
-
-
-
-            //Row 2 Attack
-            if (attackCheck.IsChecked == true)
-            {
-                row[2] = true;
-                gs.totalAttackGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    gs.totalAttackWins++;
-                }
-            }
-            else
-            {
-                row[2] = false;
-                gs.totalAttackGames++;
-            }
-
-            //Row 3 Defend
-
-            if (defendCheck.IsChecked == true)
-            {
-                row[3] = true;
-                gs.totalDefendGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    gs.totalDefendWins++;
-                }
-            }
-            else
-            {
-                row[3] = false;
-                gs.totalDefendGames++;
-            }
-
-            // Row 4 Win Loss
-
-            if (winCheckBox.IsChecked == true)
-            {
-                row[4] = "Win";
-                gs.totalGames++;
-                gs.totalWins++;
-            }
-            else
-            {
-                row[4] = "Loss";
-                gs.totalGames++;
-            }
-
-            // Row 5 Role
-
-            if (((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString() == "DPS")
-            {
-                // DPS
-                dpsTotalGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    dpsWins++;
-                }
-
-            }
-            if (((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString() == "DPS")
-            {
-                // Tank
-                //tankTotalGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    //tankWins++;
-                }
-            }
-            if (((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString() == "Heals")
-            {
-                // Heals
-                healsTotalGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    healsWins++;
-                }
-
-            }
-
-            row[5] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
-
-
-            MapType();
-            UpdateGeneralStats();
-            TankStatsUpdate();
-            dt.Rows.Add(row);
-
-
-            index++;
-
-
-
-            TestOne();
-            TestTwo();
-
-
-
-        }
-
-        private void undoButton_Click(object sender, RoutedEventArgs e)
-        {
-            RemoveRow();
-            if(dt.Rows.Count > 0)
-            {
-                dt.Rows.RemoveAt(dt.Rows.Count - 1);
-            }
-            
-        }
         public void RemoveRow()
         {
             if(dt.Rows.Count > 0)
             {
-                gs.totalGames--;
-                if ((string)dt.Rows[dt.Rows.Count - 1][5] == "DPS") // IF DPS
-                {
-                    dpsTotalGames--;
-                    if((string)dt.Rows[dt.Rows.Count -1][4] == "Win")
-                    {
-                        dpsWins--;
-                        gs.totalWins--;
-                    }
-                }
-                else if ((string)dt.Rows[dt.Rows.Count - 1][5] == "Heals") // IF DPS
-                {
-                    healsTotalGames--;
-                    if ((string)dt.Rows[dt.Rows.Count - 1][4] == "Win")
-                    {
-                        healsWins--;
-                        gs.totalWins--;
-                    }
-                }
-                else if ((string)dt.Rows[dt.Rows.Count - 1][5] == "Tank") // Tank
-                {
-                    td.tankTotal--;
-                    if ((string)dt.Rows[dt.Rows.Count - 1][4] == "Win")
-                    {
-                        td.tankWins--;
-                        gs.totalWins--;
-                    }
-                }
+                dt.Rows.RemoveAt(dt.Rows.Count - 1);
+                gs.Games--;
+                gameNumber--;
             }
-            UpdateGeneralStats();
-            UpdateTankText();
+            Stats();
             
-            if(index > 0)
-            {
-                index--;
-            }
-        }
-
-        public void MapType()
-        {
-            if(mapTypeComboBox.SelectedItem.ToString() == "Hybrid")
-            {
-                gs.totalHybridGames++;
-                if (winCheckBox.IsChecked == true)
-                {
-                    gs.totalHybridWins++;
-                }
-                
-            }
-            else if(mapTypeComboBox.SelectedItem.ToString() == "Escort")
-            {
-                gs.totalEscortGames++;
-                if(winCheckBox.IsChecked == true)
-                {
-                    gs.totalEscortWins++;
-                }
-            }
-            else if(mapTypeComboBox.SelectedItem.ToString() == "Control")
-            {
-                gs.totalControlGames++;
-                if(winCheckBox.IsChecked == true)
-                {
-                    gs.totalControlWins++;
-                }
-            }
-            else if(mapTypeComboBox.SelectedItem.ToString() == "Assault")
-            {
-                gs.totalAssaultGames++;
-                if(winCheckBox.IsChecked == true)
-                {
-                    gs.totalAssaultWins++;
-                }
-            }
         }
 
         #endregion
@@ -427,154 +212,237 @@ namespace Test5
         public void LoadGeneralStatsFromBin()
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("GeneralStatsBin", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-            gs = (GeneralStats)formatter.Deserialize(stream);
+            Stream stream = new FileStream("DataTable", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+            try
+            {
+                dt = (DataTable)formatter.Deserialize(stream);
+            }
+                catch
+            {
+                Trace.WriteLine("Failed to open dataTable");
+            }
+                
             stream.Close();
+            dg.ItemsSource = dt.DefaultView;
         }
 
         public void SaveStats()
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("GeneralStatsBin", FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
-            formatter.Serialize(stream, gs);
+            Stream stream = new FileStream("DataTable", FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+            formatter.Serialize(stream, dt);
             stream.Close();
         }
         #endregion
 
         #region Updating Text Fields
 
+        
 
-        public void UpdateGeneralStats()
+
+        public void GeneralWinsTotal() // Updating stats through for loops
         {
-            GSWinPercentage.Text = ((gs.totalWins / gs.totalGames) * 100).ToString();
-            GSTotalGames.Text = gs.totalGames.ToString();
-            if(gs.totalControlGames > 0)
+            DataRow[] rows;
+            rows = dt.Select();
+            gs.Games = 0;
+            gs.Wins = 0;
+            foreach(DataRow row in rows)
             {
-                GSControlWinPercentage.Text = ((gs.totalControlWins / gs.totalControlGames) * 100).ToString();
+                gs.Games++;
+                if(row[3].Equals(true))
+                {
+                    gs.Wins++;
+                }
             }
-            if(gs.totalEscortGames > 0)
-            {
-                GSEscortWinPercentage.Text = ((gs.totalEscortWins / gs.totalEscortGames) * 100).ToString();
-            }
-            if(gs.totalAssaultGames > 0)
-            {
-                GSAssaultWinPercentage.Text = ((gs.totalAssaultWins / gs.totalAssaultGames) * 100).ToString();
-            }
-            if(gs.totalHybridGames > 0)
-            {
-                GSHybridWinPercentage.Text = ((gs.totalHybridWins / gs.totalHybridGames) * 100).ToString();
-            }
-            
+            double temp = Math.Round(gs.Wins / gs.Games * 100, 2);
+            GSWinPercentage.Text = temp.ToString() + "%";
+            TextBoxBackgroundColor((float)temp, GSWinPercentage, 40, 60);
+            TableSearch("Type = 'Escort'", gs.EscortWins, gs.EscortGames, GSEscortWinPercentage);
+            TableSearch("Type = 'Hybrid'", gs.HybridWins, gs.HybridGames, GSHybridWinPercentage);
+            TableSearch("Type = 'Assault'", gs.AssaultWins, gs.AssaultGames, GSAssaultWinPercentage);
+            TableSearch("Type = 'Control'", gs.ControlWins, gs.ControlGames, GSControlWinPercentage);
+            GSTotalGames.Text = gs.Games.ToString();
+            GSTotalWins_TextBox.Text = gs.Wins.ToString();
         }
 
-        public void UpdateTankText()
-        {
-            if(td.tankTotal > 0)
-            {
-                tankWinPercentageTextbox.Text = Math.Round(((td.tankWins / td.tankTotal) * 100), 2).ToString();
-            }
-            if(td.tankHybridTotal > 0)
-            {
-                TankHybridWinPercentage.Text = ((td.tankHybridWins / td.tankHybridTotal) * 100).ToString();
-            }
-            if(td.tankControlTotal > 0)
-            {
-                tankControlWinPercentage_Textbox.Text = ((td.tankControlWins / td.tankControlTotal) * 100).ToString();
-            }
-            if(td.tankAssaultTotal > 0)
-            {
-                TankAssaultWinPercentage_Textbox.Text = ((td.tankAssaultWins / td.tankAssaultTotal) * 100).ToString();
-            }
-            if(td.tankEscortTotal > 0)
-            {
-                TankEscortWinPercentage_Checkbox.Text = ((td.tankEscortWins / td.tankEscortTotal) * 100).ToString();
-            }
-            TankTotalGames_TextBox.Text = td.tankTotal.ToString();
-            TankTotalWins_TextBox.Text = td.tankWins.ToString();
 
-            
+        public void TankWinsTotal()
+        {
+            GameCount("Role = 'Tank'", td.Total, TankTotalGames_TextBox);
+            TableSearch("Role = 'Tank'", td.Wins, td.Total, TankWinPercentage_TextBox);
+            TableSearch("Role = 'Tank' AND Type = 'Control'", td.ControlWins, td.ControlTotal, TankControlWinPercentage_Textbox);
+            TableSearch("Role = 'Tank' AND Type = 'Assault'", td.AssaultWins, td.AssaultTotal, TankAssaultWinPercentage_Textbox);
+            TableSearch("Role ='Tank' AND Type = 'Escort'", td.EscortWins, td.AssaultTotal, TankEscortWinPercentage_Textbox);
+            TableSearch("Role = 'Tank' AND Type = 'Hybrid'", td.HybridWins, td.HybridTotal, TankHybridWinPercentage_TextBox);
+
         }
+
+
+        public void HealsWinTotal()
+        {
+            GameCount("Role = 'Heals'", hd.Total, HealsTotalGames_TextBox);
+            TableSearch("Role = 'Heals'", hd.Wins, hd.Total, HealsWinPercentage_TextBox);
+            TableSearch("Role = 'Heals' AND Type = 'Control'", hd.ControlWins, hd.ControlTotal, HealsControlWinPercentage_Textbox);
+            TableSearch("Role = 'Heals' AND Type = 'Assault'", hd.AssaultWins, hd.AssaultTotal, HealsAssaultWinPercentage_Textbox);
+            TableSearch("Role = 'Heals' AND Type = 'Escort'", hd.EscortWins, hd.EscortTotal, HealsEscortWinPercentage_Textbox);
+            TableSearch("Role = 'Heals' AND Type = 'Hybrid'", hd.HybridWins, hd.HybridTotal, HealsHybridWinPercentage_TextBox);
+        }
+
+
+        public void DPSWinTotal()
+        {
+            GameCount("Role = 'DPS'", dd.Total, DPSTotalGames_TextBox);
+            TableSearch("Role = 'DPS'", dd.Wins, dd.Total, DPSWinPercentage_TextBox);
+            TableSearch("Role = 'DPS' AND Type = 'Control'", dd.ControlWins, dd.ControlTotal, DPSControlWinPercentage_Textbox);
+            TableSearch("Role = 'DPS' AND Type = 'Assault'", dd.AssaultWins, dd.AssaultTotal, DPSAssaultWinPercentage_Textbox);
+            TableSearch("Role = 'DPS' AND Type = 'Escort'", dd.EscortWins, dd.EscortTotal, DPSEscortWinPercentage_Textbox);
+            TableSearch("Role = 'DPS' AND Type = 'Hybrid'", dd.HybridWins, dd.HybridTotal, DPSHybridWinPercentage_TextBox);
+            //
+        }
+
+        public void Stats()
+        {
+            GeneralWinsTotal();
+            TankWinsTotal();
+            HealsWinTotal();
+            DPSWinTotal();
+        }
+
+
+
+        #endregion
+
+        #region Button Events
 
         private void Save_Session_Button_Click(object sender, RoutedEventArgs e)
         {
-            SaveStats();
+            MessageBoxResult mbr = System.Windows.MessageBox.Show("Save the current session?", "Save Session", System.Windows.MessageBoxButton.YesNo);
+            if (mbr == MessageBoxResult.Yes)
+            {
+                SaveStats();
+                MessageBoxResult confirmedSave = System.Windows.MessageBox.Show("Saved current session", "Saved", System.Windows.MessageBoxButton.OK);
+            }
+
+        }
+        private void ClearSession_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Clear all data?", "Erase all", MessageBoxButton.YesNo);
+            if(mbr == MessageBoxResult.Yes)
+            {
+                dt.Clear();
+                SetupTable();
+                Stats();
+            }
+            
+            
         }
 
-       public void TankStatsUpdate()
+        private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            if(roleComboBox.SelectedItem.ToString() == "Tank")
+            DataRow row = dt.NewRow();
+            row[0] = gameNumber;
+            if(mapTypeComboBox.SelectedItem == null)
             {
-                /*if(mapTypeComboBox.SelectedItem.ToString() == "Hybrid")
-                {
-                    td.tankHybridTotal++;
-                    if(winCheckBox.IsChecked == true)
-                    {
-                        td.tankHybridWins++;
-                    }
-                }*/
-                if(mapTypeComboBox.SelectedItem.ToString() == "Escort")
-                {
-                    td.tankEscortTotal++;
-                    if (winCheckBox.IsChecked == true)
-                    {
-                        td.tankEscortWins++;
-                    }
-                }
-                else if(mapTypeComboBox.SelectedItem.ToString() == "Assault")
-                {
-                    td.tankAssaultTotal++;
-                    if (winCheckBox.IsChecked == true)
-                    {
-                        td.tankAssaultWins++;
-                    }
-                }
-                else if(mapTypeComboBox.SelectedItem.ToString() == "Control")
-                {
-                    td.tankControlTotal++;
-                    if (winCheckBox.IsChecked == true)
-                    {
-                        td.tankControlWins++;
-                    }
-                }
-                td.tankTotal++;
-                if(winCheckBox.IsChecked == true)
-                {
-                    td.tankWins++;
-                }
-                UpdateTankText();
+                MessageBox.Show("No Map Type selected. Please select a Map Type", "Map Type Error", MessageBoxButton.OK);
+                return;
             }
-        }
-        
-        public void TestOne()
-        {
-            DataRow[] tankRows;
-            td.tankTotal = 0;
-            tankRows = dt.Select("Role = 'Tank'");
-            foreach (DataRow row in tankRows)
+            else
             {
-                td.tankTotal++;
+                row[1] = ((ComboBoxItem)mapTypeComboBox.SelectedItem).Content.ToString();
             }
-            Trace.WriteLine(td.tankTotal);
+
+            row[2] = attackCheck.IsChecked;
+            row[3] = winCheckBox.IsChecked;
+            row[4] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
+            dt.Rows.Add(row);
+
+            Stats();// Test Function
+            dg.ItemsSource = dt.DefaultView;
         }
 
-        public void TestTwo()
+        private void undoButton_Click(object sender, RoutedEventArgs e)
         {
-            DataRow[] temp;
-            td.tankHybridTotal = 0;
-            temp = dt.Select("Role = 'Tank' AND 'Map Type' = 'Hybrid'");
-            foreach(DataRow row in temp)
+            RemoveRow();
+        }
+        #endregion
+
+        #region Public Functions
+
+        private void CheckBoxesActive(bool isActive)
+        {
+            if (isActive)
             {
-                td.tankHybridTotal++;
-                if(row[4].ToString() == "Win")
+                attackCheck.IsEnabled = true;
+                defendCheck.IsEnabled = true;
+            }
+            else
+            {
+                attackCheck.IsEnabled = false;
+                defendCheck.IsEnabled = false;
+            }
+        }
+
+        private void TextBoxBackgroundColor(float meteredNumber, TextBox textBox,  float lowCutoff, float highCutoff)
+        {
+            if(meteredNumber < lowCutoff)
+            {
+                textBox.Background = Brushes.Red;
+            }
+            else if(meteredNumber > highCutoff)
+            {
+                textBox.Background = Brushes.Green;
+            }
+            else if(meteredNumber > lowCutoff && meteredNumber < highCutoff)
+            {
+                textBox.Background = Brushes.Yellow;
+            }
+            else
+            {
+                textBox.Background = Brushes.LightCyan;
+            }
+        }
+
+        public void TableSearch(string selectFilterString, float totalWins, float totalGames, TextBox textbox)
+        {
+            DataRow[] datarow;
+            datarow = dt.Select(selectFilterString);
+            totalWins = 0;
+            totalGames = 0;
+            foreach(DataRow row in datarow)
+            {
+                totalGames++;
+                if(row[3].Equals(true))
                 {
-                    td.tankHybridWins++;
+                    totalWins++;
                 }
             }
-            UpdateTankText();
+            float temp = totalWins / totalGames * 100;
+            if(totalWins > 0)
+            {
+                textbox.Text = Math.Round(temp, 2).ToString() + "%";
+            }
+            else
+            {
+                textbox.Text = "None";
+            }
+            
+            TextBoxBackgroundColor(temp, textbox, 40, 60);
+        }
+
+        public void GameCount(string filterExpression, float totalGames, TextBox textbox)
+        {
+            DataRow[] rows;
+            rows = dt.Select(filterExpression);
+            totalGames = 0;
+            foreach(DataRow row in rows)
+            {
+                totalGames++;
+            }
+
+            textbox.Text = totalGames.ToString();
         }
 
 
         #endregion
-        
     }
 }
