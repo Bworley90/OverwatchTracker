@@ -25,8 +25,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://github.com/Bworley90/OverwatchTracker/</UpdateUrl>
-    <ApplicationRevision>6</ApplicationRevision>
+    <UpdateUrl>https://github.com/Bworley90/OverwatchTracker/tree/master/Test5/</UpdateUrl>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
