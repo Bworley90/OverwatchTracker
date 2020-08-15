@@ -405,7 +405,7 @@ namespace Test5
             }
             else if(meteredNumber > lowCutoff && meteredNumber < highCutoff)
             {
-                textBox.Background = Brushes.Yellow;
+                textBox.Background = Brushes.Orange;
             }
             else
             {
