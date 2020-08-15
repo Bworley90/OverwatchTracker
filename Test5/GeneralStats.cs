@@ -15,6 +15,7 @@ namespace Test5
     {
         public float Wins;
         public float Games;
+        public float totalGames;
         public float AssaultGames;
         public float AssaultWins;
         public float HybridWins;
@@ -45,6 +46,7 @@ namespace Test5
             gs.DefendWins = 0;
             gs.AttackWins = 0;
             gs.AttackGames = 0;
+            gs.totalGames = 0;
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("GeneralStats", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);

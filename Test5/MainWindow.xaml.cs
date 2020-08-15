@@ -201,6 +201,7 @@ namespace Test5
                 gs.Games--;
                 gameNumber--;
             }
+            gs.totalGames--;
             Stats();
             
         }
@@ -255,7 +256,15 @@ namespace Test5
                 }
             }
             double temp = Math.Round(gs.Wins / gs.Games * 100, 2);
-            GSWinPercentage.Text = temp.ToString() + "%";
+            if(gs.Games > 0)
+            {
+                GSWinPercentage.Text = temp.ToString() + "%";
+            }
+            else
+            {
+                GSWinPercentage.Text = "0%";
+            }
+            
             TextBoxBackgroundColor((float)temp, GSWinPercentage, 40, 60);
             TableSearch("Type = 'Escort'", gs.EscortWins, gs.EscortGames, GSEscortWinPercentage);
             TableSearch("Type = 'Hybrid'", gs.HybridWins, gs.HybridGames, GSHybridWinPercentage);
@@ -340,7 +349,8 @@ namespace Test5
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
             DataRow row = dt.NewRow();
-            row[0] = gameNumber;
+            row[0] = gs.totalGames + 1;
+            //
             if(mapTypeComboBox.SelectedItem == null)
             {
                 MessageBox.Show("No Map Type selected. Please select a Map Type", "Map Type Error", MessageBoxButton.OK);
@@ -355,6 +365,7 @@ namespace Test5
             row[3] = winCheckBox.IsChecked;
             row[4] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
             dt.Rows.Add(row);
+            gs.totalGames++;
 
             Stats();// Test Function
             dg.ItemsSource = dt.DefaultView;
@@ -384,11 +395,11 @@ namespace Test5
 
         private void TextBoxBackgroundColor(float meteredNumber, TextBox textBox,  float lowCutoff, float highCutoff)
         {
-            if(meteredNumber < lowCutoff)
+            if(meteredNumber <= lowCutoff)
             {
                 textBox.Background = Brushes.Red;
             }
-            else if(meteredNumber > highCutoff)
+            else if(meteredNumber >= highCutoff)
             {
                 textBox.Background = Brushes.Green;
             }
@@ -417,7 +428,7 @@ namespace Test5
                 }
             }
             float temp = totalWins / totalGames * 100;
-            if(totalWins > 0)
+            if(totalGames > 0)
             {
                 textbox.Text = Math.Round(temp, 2).ToString() + "%";
             }
