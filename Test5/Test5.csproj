@@ -28,6 +28,7 @@
     <UpdateUrl>https://raw.githubusercontent.com/Bworley90/OverwatchTracker/master/Test5/Publish/</UpdateUrl>
     <ProductName>Overwatch Tracker</ProductName>
     <PublisherName>Renown</PublisherName>
+    <MinimumRequiredVersion>1.1.0.0</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>0</ApplicationRevision>
