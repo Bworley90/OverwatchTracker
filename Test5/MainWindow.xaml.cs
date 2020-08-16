@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -224,6 +225,12 @@ namespace Test5
             formatter.Serialize(stream, dt);
             stream.Close();
         }
+
+        public void SaveFile()
+        {
+            
+        }
+
         #endregion
 
         #region Updating Text Fields
@@ -326,7 +333,8 @@ namespace Test5
             MessageBoxResult mbr = System.Windows.MessageBox.Show("Save the current session?", "Save Session", System.Windows.MessageBoxButton.YesNo);
             if (mbr == MessageBoxResult.Yes)
             {
-                SaveStats();
+                //SaveStats();
+                SaveFile();
                 MessageBoxResult confirmedSave = System.Windows.MessageBox.Show("Saved current session", "Saved", System.Windows.MessageBoxButton.OK);
             }
 
@@ -473,6 +481,15 @@ namespace Test5
         }
 
 
+
         #endregion
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            var fileStream = openFile.OpenFile();
+            StreamReader stream = new StreamReader(fileStream);
+            
+        }
     }
 }
