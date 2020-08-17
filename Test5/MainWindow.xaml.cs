@@ -22,7 +22,7 @@ namespace Test5
         // Add role to datatable and fill row 
     public partial class MainWindow : Window
     {
-        DataTable dt = new DataTable("OverwatchMatchData");
+        DataTable dt = new DataTable("OverwatchTrackerGameData");
         GeneralStats gs = new GeneralStats();
         TankData td = new TankData();
         HealsData hd = new HealsData();
@@ -201,7 +201,7 @@ namespace Test5
         {
             try
             {
-                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
                 DataTable tempTable = new DataTable();
                 FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 tempTable.ReadXml(stream);
@@ -221,7 +221,7 @@ namespace Test5
 
         public void SaveFile()
         {
-            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
             dt.WriteXml(@path, XmlWriteMode.WriteSchema);
 
         }
@@ -380,7 +380,7 @@ namespace Test5
             MessageBoxResult result = MessageBox.Show("Load from file? \n !!THIS WILL ERASE THE CURRENT LOGGED MATCHES!!", "Load File", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {
-                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
                 DataTable tempTable = new DataTable();
                 FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
                 tempTable.ReadXml(stream);
