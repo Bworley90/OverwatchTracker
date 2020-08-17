@@ -8,37 +8,38 @@
         Title="Overwatch Game Tracker" Height="417" Width="892" Closing="Window_Closing" Background="#FF807070">
     <Grid Background="#FF858484" Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width=".5*"/>
-            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width="220*"/>
+            <ColumnDefinition Width="221*"/>
+            <ColumnDefinition Width="221*"/>
+            <ColumnDefinition Width="220*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Match Setup-->
-        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Match Setup" VerticalAlignment="Center" Height="48" Width="395" TextAlignment="Center" FontSize="42" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" TextDecorations="{x:Null}" Margin="22,5,24,333" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Match Setup" VerticalAlignment="Top" Height="43" Width="395" TextAlignment="Center" FontSize="42" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" TextDecorations="{x:Null}" Margin="22,10,24,0" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
 
 
-        <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Left" Margin="153,286,0,0" VerticalAlignment="Top" Width="157" Click="submitButton_Click" FontSize="32" Height="50" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
+        <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Left" Margin="153,286,0,0" VerticalAlignment="Top" Width="157" Click="submitButton_Click" FontSize="32" Height="50" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Role:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <ComboBox x:Name="roleComboBox" HorizontalAlignment="Left" Margin="160,56,0,0" VerticalAlignment="Top" Width="150" Height="40" SelectedIndex="0" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" VerticalContentAlignment="Center" FontSize="24">
+        <ComboBox x:Name="roleComboBox" HorizontalAlignment="Left" Margin="160,56,0,0" VerticalAlignment="Top" Width="150" Height="40" SelectedIndex="0" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" VerticalContentAlignment="Center" FontSize="24" Grid.ColumnSpan="2">
             <ComboBoxItem Content="DPS"/>
             <ComboBoxItem Content="Tank"/>
             <ComboBoxItem Content="Heals"/>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="5,148,0,0" TextWrapping="Wrap" Text="Map:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <ComboBox x:Name="mapComboBox" HorizontalAlignment="Left" Margin="160,148,0,0" VerticalAlignment="Top" Width="150" Height="40" SelectedIndex="0" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24" RenderTransformOrigin="0.487,0.84"/>
+        <ComboBox x:Name="mapComboBox" HorizontalAlignment="Left" Margin="160,148,0,0" VerticalAlignment="Top" Width="150" Height="40" SelectedIndex="0" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24" RenderTransformOrigin="0.487,0.84" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,193,0,0" Text="Attacked:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,238,0,0" TextWrapping="Wrap" Text="Win:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
         <CheckBox x:Name="winCheckBox" Content="" HorizontalAlignment="Left" Margin="160,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.522,0.633" BorderThickness="5"/>
         <TextBlock HorizontalAlignment="Left" Margin="5,103,0,0" TextWrapping="Wrap" Text="Map Type:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <ComboBox x:Name="mapTypeComboBox" HorizontalAlignment="Left" Margin="160,103,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="mapTypeComboBox_SelectionChanged" Height="40" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24">
+        <ComboBox x:Name="mapTypeComboBox" HorizontalAlignment="Left" Margin="160,103,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="mapTypeComboBox_SelectionChanged" Height="40" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24" Grid.ColumnSpan="2">
             <ComboBoxItem Content="Hybrid"/>
             <ComboBoxItem Content="Control"/>
             <ComboBoxItem Content="Escort" />
             <ComboBoxItem Content="Assault"/>
         </ComboBox>
         <Button x:Name="undoButton" Content="Undo Last Log" HorizontalAlignment="Left" Margin="16,351,0,0" VerticalAlignment="Top" Width="100" Click="undoButton_Click" FontSize="18" Height="25" RenderTransformOrigin="-0.21,-0.18" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <TabControl Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FF464646">
+        <TabControl Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FF464646">
             <TabItem Header="General Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -221,9 +222,9 @@
 
         </TabControl>
         <CheckBox x:Name="attackCheck" Content="" HorizontalAlignment="Left" Margin="160,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.55,-0.067" BorderThickness="5"/>
-        <Button x:Name="LoadFromFile_Button" Content="Load from File" HorizontalAlignment="Left" Margin="226,351,0,0" VerticalAlignment="Top" Width="100" Click="LoadFromFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <Button x:Name="SaveToFile_Button" Content="Save to file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="SaveToFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Margin="121,351,0,0"/>
-        <Button x:Name="exportToExcel" Content="Export for Excel" HorizontalAlignment="Left" Margin="331,351,0,0" VerticalAlignment="Top" Width="100" Click="exportToExcel_Click" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="18"/>
+        <Button x:Name="LoadFromFile_Button" Content="Load from File" HorizontalAlignment="Left" Margin="6,351,0,0" VerticalAlignment="Top" Width="100" Click="LoadFromFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Grid.Column="1"/>
+        <Button x:Name="SaveToFile_Button" Content="Save to file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="SaveToFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Margin="121,351,0,0" Grid.ColumnSpan="2"/>
+        <Button x:Name="exportToExcel" Content="Export for Excel" HorizontalAlignment="Left" Margin="111,351,0,0" VerticalAlignment="Top" Width="100" Click="exportToExcel_Click" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="18" Grid.Column="1"/>
 
     </Grid>
 </Window>
