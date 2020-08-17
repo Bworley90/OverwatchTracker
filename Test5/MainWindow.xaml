@@ -37,7 +37,7 @@
             <ComboBoxItem Content="Escort" />
             <ComboBoxItem Content="Assault"/>
         </ComboBox>
-        <Button x:Name="undoButton" Content="Undo Last Log" HorizontalAlignment="Left" Margin="22,351,0,0" VerticalAlignment="Top" Width="100" Click="undoButton_Click" FontSize="18" Height="25" RenderTransformOrigin="-0.21,-0.18" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
+        <Button x:Name="undoButton" Content="Undo Last Log" HorizontalAlignment="Left" Margin="16,351,0,0" VerticalAlignment="Top" Width="100" Click="undoButton_Click" FontSize="18" Height="25" RenderTransformOrigin="-0.21,-0.18" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
         <TabControl Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FF464646">
             <TabItem Header="General Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
                 <TabItem.Background>
@@ -221,8 +221,9 @@
 
         </TabControl>
         <CheckBox x:Name="attackCheck" Content="" HorizontalAlignment="Left" Margin="160,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.55,-0.067" BorderThickness="5"/>
-        <Button x:Name="LoadFromFile_Button" Content="Load from File" HorizontalAlignment="Left" Margin="331,351,0,0" VerticalAlignment="Top" Width="100" Click="LoadFromFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <Button x:Name="SaveToFile_Button" Content="Save to file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="SaveToFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Margin="176,351,0,0"/>
+        <Button x:Name="LoadFromFile_Button" Content="Load from File" HorizontalAlignment="Left" Margin="226,351,0,0" VerticalAlignment="Top" Width="100" Click="LoadFromFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
+        <Button x:Name="SaveToFile_Button" Content="Save to file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="SaveToFile_Button_Click" FontSize="18" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Margin="121,351,0,0"/>
+        <Button x:Name="exportToExcel" Content="Export for Excel" HorizontalAlignment="Left" Margin="331,351,0,0" VerticalAlignment="Top" Width="100" Click="exportToExcel_Click" Height="25" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="18"/>
 
     </Grid>
 </Window>

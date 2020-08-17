@@ -404,11 +404,7 @@ namespace Test5
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Save Session?", "Save", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                SaveFile();
-            }
+           
         }
         #endregion
 
@@ -509,10 +505,19 @@ namespace Test5
 
 
 
+
+
+
         #endregion
 
-        
-
-        
+        private void exportToExcel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Export your data to the Desktop?", "Export", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "OverwatchMatchExcel.xml");
+                dt.WriteXml(@path);
+            }
+        }
     }
 }
