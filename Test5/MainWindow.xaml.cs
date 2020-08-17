@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Xml;
 
 namespace Test5
 {
@@ -21,11 +22,13 @@ namespace Test5
         // Add role to datatable and fill row 
     public partial class MainWindow : Window
     {
-        DataTable dt = new DataTable();
+        DataTable dt = new DataTable("OverwatchMatchData");
         GeneralStats gs = new GeneralStats();
         TankData td = new TankData();
         HealsData hd = new HealsData();
         DPSData dd = new DPSData();
+
+        DataSet ds = new DataSet();
         public int gameNumber = 1;
 
         // Map Lists
@@ -41,11 +44,7 @@ namespace Test5
             InitializeComponent();
             AddAllMaps();
             SetupTable();
-            LoadGeneralStatsFromBin();
-            Stats();
-            
-
-
+            LoadGeneralStatsFromXML();
         }
 
 
@@ -178,9 +177,6 @@ namespace Test5
             {
                 Trace.WriteLine("Table already created");
             }
-            
-
-            dg.ItemsSource = dt.DefaultView;
         }
 
 
@@ -201,34 +197,33 @@ namespace Test5
 
         #region Binary Serialization
 
-        public void LoadGeneralStatsFromBin()
+        public void LoadGeneralStatsFromXML()
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("DataTable", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
             try
             {
-                dt = (DataTable)formatter.Deserialize(stream);
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+                DataTable tempTable = new DataTable();
+                FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                tempTable.ReadXml(stream);
+                dt = tempTable;
+                stream.Close();
+                Stats();
+                dg.ItemsSource = dt.DefaultView;
+
             }
-                catch
+            catch
             {
-                Trace.WriteLine("Failed to open dataTable");
+                Trace.WriteLine("Missing Datatable information");
             }
-                
-            stream.Close();
             dg.ItemsSource = dt.DefaultView;
         }
 
-        public void SaveStats()
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("DataTable", FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-            formatter.Serialize(stream, dt);
-            stream.Close();
-        }
 
         public void SaveFile()
         {
-            
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+            dt.WriteXml(@path, XmlWriteMode.WriteSchema);
+
         }
 
         #endregion
@@ -328,28 +323,16 @@ namespace Test5
 
         #region Button Events
 
-        private void Save_Session_Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult mbr = System.Windows.MessageBox.Show("Save the current session?", "Save Session", System.Windows.MessageBoxButton.YesNo);
-            if (mbr == MessageBoxResult.Yes)
-            {
-                //SaveStats();
-                SaveFile();
-                MessageBoxResult confirmedSave = System.Windows.MessageBox.Show("Saved current session", "Saved", System.Windows.MessageBoxButton.OK);
-            }
 
-        }
-        private void ClearSession_Click(object sender, RoutedEventArgs e)
+        private void ClearData_Button_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbr = MessageBox.Show("Clear all data?", "Erase all", MessageBoxButton.YesNo);
-            if(mbr == MessageBoxResult.Yes)
+            if (mbr == MessageBoxResult.Yes)
             {
                 dt.Clear();
                 SetupTable();
                 Stats();
             }
-            
-            
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
@@ -390,6 +373,42 @@ namespace Test5
         private void undoButton_Click(object sender, RoutedEventArgs e)
         {
             RemoveRow();
+        }
+
+        private void LoadFromFile_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Load from file? \n !!THIS WILL ERASE THE CURRENT LOGGED MATCHES!!", "Load File", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData");
+                DataTable tempTable = new DataTable();
+                FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                tempTable.ReadXml(stream);
+                dt = tempTable;
+                stream.Close();
+                dg.ItemsSource = dt.DefaultView;
+                Stats();
+            }
+
+        }
+
+        private void SaveToFile_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Save Session?", "Save", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveFile();
+            }
+        }
+
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Save Session?", "Save", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveFile();
+            }
         }
         #endregion
 
@@ -437,6 +456,10 @@ namespace Test5
             {
                 textBox.Background = Brushes.Green;
             }
+            else
+            {
+                textBox.Background = Brushes.LightBlue;
+            }
 
         }
 
@@ -482,14 +505,14 @@ namespace Test5
 
 
 
+
+
+
+
         #endregion
 
-        private void Load_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFile = new OpenFileDialog();
-            var fileStream = openFile.OpenFile();
-            StreamReader stream = new StreamReader(fileStream);
-            
-        }
+        
+
+        
     }
 }

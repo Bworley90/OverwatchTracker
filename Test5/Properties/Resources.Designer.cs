@@ -59,5 +59,15 @@ namespace RenownsOverwatchProgram.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] bignoodletoo {
+            get {
+                object obj = ResourceManager.GetObject("bignoodletoo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
