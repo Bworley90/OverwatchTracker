@@ -195,7 +195,7 @@ namespace Test5
 
         #endregion
 
-        #region Binary Serialization
+        #region XML
 
         public void LoadGeneralStatsFromXML()
         {
@@ -209,7 +209,6 @@ namespace Test5
                 stream.Close();
                 Stats();
                 dg.ItemsSource = dt.DefaultView;
-
             }
             catch
             {
@@ -221,16 +220,48 @@ namespace Test5
 
         public void SaveFile()
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = (DateTime.Now.ToString("MM-dd-yyyy") + " OverWatch Session");
+            saveFileDialog.DefaultExt = ".xml";
+            saveFileDialog.Filter = "XML Documents (.xml) |*.xml";
+
+            Nullable<bool> result = saveFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                dt.WriteXml(saveFileDialog.FileName, XmlWriteMode.WriteSchema);
+            }
+        }
+
+        public void LoadFromFile()
+        {
+            OpenFileDialog openFileDiag = new OpenFileDialog();
+            openFileDiag.DefaultExt = ".xml";
+            openFileDiag.Filter = "XML Documents (.xml)|*.xml";
+            Nullable<bool> result = openFileDiag.ShowDialog();
+            if (result == true)
+            {
+                DataTable tempTable = new DataTable();
+                FileStream stream = new FileStream(openFileDiag.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                tempTable.ReadXml(stream);
+                dt = tempTable;
+                stream.Close();
+                dg.ItemsSource = dt.DefaultView;
+                Stats();
+            }
+        }
+
+        public void SaveCurrentSession()
+        {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
             dt.WriteXml(@path, XmlWriteMode.WriteSchema);
-
         }
 
         #endregion
 
         #region Updating Text Fields
 
-        
+
 
 
         public void GeneralWinsTotal() // Updating stats through for loops
@@ -323,7 +354,29 @@ namespace Test5
 
         #region Button Events
 
+        private void RemoveSelected_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(dg.SelectedIndex != -1)
+            {
+                dt.Rows.RemoveAt(dg.SelectedIndex);
+                SaveCurrentSession();
 
+            }
+            
+        }
+
+        private void exportToExcel_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = "OverWatchDataXML";
+            sfd.Filter = "XML Document (.XML)|*xml";
+            sfd.DefaultExt = ".xml";
+            if(sfd.ShowDialog() == true)
+            {
+                dt.WriteXml(sfd.FileName);
+            }
+
+        }
         private void ClearData_Button_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbr = MessageBox.Show("Clear all data?", "Erase all", MessageBoxButton.YesNo);
@@ -331,6 +384,7 @@ namespace Test5
             {
                 dt.Clear();
                 SetupTable();
+                SaveCurrentSession();
                 Stats();
             }
         }
@@ -338,8 +392,7 @@ namespace Test5
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
             DataRow row = dt.NewRow();
-            row[0] = gs.totalGames + 1;
-            //
+            row[0] = dt.Rows.Count + 1;
             if(mapTypeComboBox.SelectedItem == null)
             {
                 MessageBox.Show("No Map Type selected. Please select a Map Type", "Map Type Error", MessageBoxButton.OK);
@@ -365,6 +418,7 @@ namespace Test5
             }
             dt.Rows.Add(row);
             gs.totalGames++;
+            SaveCurrentSession();
 
             Stats();// Test Function
             dg.ItemsSource = dt.DefaultView;
@@ -373,32 +427,31 @@ namespace Test5
         private void undoButton_Click(object sender, RoutedEventArgs e)
         {
             RemoveRow();
+            SaveCurrentSession();
         }
 
         private void LoadFromFile_Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Load from file? \n !!THIS WILL ERASE THE CURRENT LOGGED MATCHES!!", "Load File", MessageBoxButton.OKCancel);
-            if (result == MessageBoxResult.OK)
-            {
-                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
-                DataTable tempTable = new DataTable();
-                FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                tempTable.ReadXml(stream);
-                dt = tempTable;
-                stream.Close();
-                dg.ItemsSource = dt.DefaultView;
-                Stats();
-            }
+            /* MessageBoxResult result = MessageBox.Show("Load from file? \n !!THIS WILL ERASE THE CURRENT LOGGED MATCHES!!", "Load File", MessageBoxButton.OKCancel);
+             if (result == MessageBoxResult.OK)
+             {
+                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
+                 DataTable tempTable = new DataTable();
+                 FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                 tempTable.ReadXml(stream);
+                 dt = tempTable;
+                 stream.Close();
+                 dg.ItemsSource = dt.DefaultView;
+                 Stats();
+             }
+             */
 
-        }
+            LoadFromFile();
+            }
 
         private void SaveToFile_Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Save Session?", "Save", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                SaveFile();
-            }
+            SaveFile();
         }
 
 
@@ -500,25 +553,14 @@ namespace Test5
         }
 
 
+        #endregion
 
+        #region Testing
 
-
-
-
-
-
+        
 
         #endregion
 
-        private void exportToExcel_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Export your data to the Desktop?", "Export", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "OverwatchMatchExcel.xml");
-                dt.WriteXml(@path);
-                //
-            }
-        }
+
     }
 }
