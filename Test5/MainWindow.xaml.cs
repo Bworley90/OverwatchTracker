@@ -369,6 +369,7 @@ namespace Test5
                 float defendWins = 0;
                 foreach(DataRow row in datarow)
                 {
+                    total++;
                     if(row[2].Equals(true))
                     {
                         attackTotal++;
