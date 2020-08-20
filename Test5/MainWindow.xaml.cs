@@ -422,7 +422,7 @@ namespace Test5
                 {
                     MapData_Attack_TextBox.Text = "No Data";
                 }
-                if (wins > 0)
+                if (total > 0)
                 {
                     if (wins > 0)
                     {
