@@ -5,18 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test5"
         mc:Ignorable="d"
-        Title="Overwatch Game Tracker" Height="450" Width="900" Closing="Window_Closing" Background="#FF807070">
+        Title="Overwatch Game Tracker" Height="450" Width="1000" Closing="Window_Closing" Background="#FF807070">
 
-
-
-    <Window.Resources>
-        <ControlTemplate x:Key="roundbutton" TargetType="RadioButton">
-            <Grid>
-                <Image Source="Resources\TankIcon.png "/>
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Grid>
-        </ControlTemplate>
-    </Window.Resources>
 
 
     <Grid Background="#FF858484" Margin="0,0,2,0">
@@ -55,7 +45,7 @@
             <ComboBoxItem Content="Assault"/>
         </ComboBox>
         <Button x:Name="undoButton" Content="Undo Last Log" HorizontalAlignment="Left" Margin="16,351,0,0" VerticalAlignment="Top" Width="100" Click="undoButton_Click" FontSize="18" Height="25" RenderTransformOrigin="-0.21,-0.18" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <TabControl Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FF464646">
+        <TabControl Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FFDEDEDE">
             <TabItem Header="General Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -63,7 +53,7 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FF858484">
+                <Grid Background="#FFDEDEDE">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="152*"/>
                         <ColumnDefinition Width="66*"/>
@@ -99,6 +89,58 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Map Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--Left Side-->
+                    <StackPanel Grid.Column = "0">
+                        <TextBlock Text="Select Map" HorizontalAlignment="Center" FontSize="42"/>
+                        <ComboBox x:Name="MapData_ComboBox" IsSynchronizedWithCurrentItem="True" DropDownClosed="MapData_ComboBox_DropDownClosed"/>
+                        <TextBlock Text="Attack:" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+                        <TextBlock Text="Defend:" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+                        <TextBlock Text="Wins:" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+
+                    </StackPanel>
+                    
+                    <!--Right Side-->
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Select Role" HorizontalAlignment="Center" FontSize="42"/>
+                        <ComboBox x:Name="MapData_Role_ComboBox"  DropDownClosed="MapData_Role_ComboBox_DropDownClosed">
+                        </ComboBox>
+                        <TextBox x:Name="MapData_Attack_TextBox" Text="0%" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+                        <TextBox x:Name="MapData_Defend_TextBox" Text="0%" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+                        <TextBox x:Name="MapData_Wins_TextBox" Text="0%" TextAlignment="Center" FontSize="38" Margin="0 20 0 20" Height="40"/>
+                        
+                    </StackPanel>
+
+
+
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Match History" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="18" Background="#FFDEDEDE" Margin="0,0,0,23"/>
+                    <Button x:Name="RemoveSelected_Button" Content="Remove Selected" Margin="157,0,172,0" Height="23" VerticalAlignment="Bottom" Click="RemoveSelected_Button_Click"/>
+
+                </Grid>
+            </TabItem>
             <TabItem Header="Tank Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -106,7 +148,7 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FF858484">
+                <Grid Background="#FFDEDEDE">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -148,7 +190,7 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FF858484">
+                <Grid Background="#FFDEDEDE">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -189,7 +231,7 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FF858484">
+                <Grid Background="#FFDEDEDE">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -223,19 +265,8 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Match History" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="18" Background="#FF858484" Margin="0,0,0,23"/>
-                    <Button x:Name="RemoveSelected_Button" Content="Remove Selected" Margin="157,0,172,0" Height="23" VerticalAlignment="Bottom" Click="RemoveSelected_Button_Click"/>
-
-                </Grid>
-            </TabItem>
+            
+            
 
         </TabControl>
         <CheckBox x:Name="attackCheck" Content="" HorizontalAlignment="Left" Margin="160,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.55,-0.067" BorderThickness="5"/>

@@ -38,6 +38,7 @@ namespace Test5
         List<string> AssaultMaps = new List<string>();
         List<string> ControlMaps = new List<string>();
         List<string> HybridMaps = new List<string>();
+        List<string> AllMaps = new List<string>();
 
         public MainWindow()
         {
@@ -45,6 +46,7 @@ namespace Test5
             AddAllMaps();
             SetupTable();
             LoadGeneralStatsFromXML();
+            UpdateWindowItems();
         }
 
 
@@ -150,6 +152,7 @@ namespace Test5
 
         }
 
+        
 
         #endregion
 
@@ -346,6 +349,95 @@ namespace Test5
             TankWinsTotal();
             HealsWinTotal();
             DPSWinTotal();
+            MapStats();
+        }
+
+        public void MapStats()
+        {
+            if(MapData_Role_ComboBox.SelectedIndex != -1 && MapData_ComboBox.SelectedIndex != -1)
+            {
+                DataRow[] datarow;
+                string searchString = ("Role = " + "'" + MapData_Role_ComboBox.SelectedItem.ToString() + "'" + " AND " + "  Map = " + "'" + MapData_ComboBox.SelectedItem.ToString() + "'");
+                Trace.WriteLine(searchString);
+                Trace.WriteLine(MapData_Role_ComboBox.SelectedItem.ToString());
+                datarow = dt.Select(searchString);
+                float total = 0;
+                float wins = 0;
+                float attackWins = 0;
+                float attackTotal = 0;
+                float defendTotal = 0;
+                float defendWins = 0;
+                foreach(DataRow row in datarow)
+                {
+                    if(row[2].Equals(true))
+                    {
+                        attackTotal++;
+                        if (row[3].Equals(true))
+                        {
+                            attackWins++;
+                        }
+                        else
+                        {
+                            defendWins++;
+                        }
+                    }
+                    else
+                    {
+                        defendTotal++;
+                    }
+                    if(row[3].Equals(true))
+                    {
+                        wins++;
+                        
+                    }
+                }
+                if(defendTotal > 0)
+                {
+                    if(defendWins > 0)
+                    {
+                        MapData_Defend_TextBox.Text = Math.Round(defendWins / attackTotal * 100, 2).ToString() + "%";
+                    }
+                    else
+                    {
+                        MapData_Defend_TextBox.Text = "0%";
+                    }
+
+                }
+                else
+                {
+                    MapData_Defend_TextBox.Text = "No Data";
+                }
+                if (attackTotal > 0)
+                {
+                    if(attackWins > 0)
+                    {
+                        MapData_Attack_TextBox.Text = Math.Round(attackWins / defendTotal * 100, 2).ToString() + "%";
+                    }
+                    else
+                    {
+                        MapData_Attack_TextBox.Text = "0%";
+                    }
+                }
+                else
+                {
+                    MapData_Attack_TextBox.Text = "No Data";
+                }
+                if (wins > 0)
+                {
+                    if (wins > 0)
+                    {
+                        MapData_Wins_TextBox.Text = Math.Round(wins / total * 100, 2).ToString() + "%";
+                    }
+                    else
+                    {
+                        MapData_Wins_TextBox.Text = "0%";
+                    }
+                }
+                else
+                {
+                    MapData_Wins_TextBox.Text = "No Data";
+                }
+            }
         }
 
 
@@ -363,6 +455,16 @@ namespace Test5
 
             }
             
+        }
+
+        private void MapData_Role_ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            MapStats();
+        }
+
+        private void MapData_ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            MapStats();
         }
 
         private void exportToExcel_Click(object sender, RoutedEventArgs e)
@@ -420,8 +522,10 @@ namespace Test5
             gs.totalGames++;
             SaveCurrentSession();
 
-            Stats();// Test Function
+            Stats();
             dg.ItemsSource = dt.DefaultView;
+            MessageBox.Show("Match Saved", "Saved");
+
         }
 
         private void undoButton_Click(object sender, RoutedEventArgs e)
@@ -553,14 +657,56 @@ namespace Test5
         }
 
 
+
+        #endregion
+
+        #region Window Items
+
+        private void UpdateWindowItems()
+        {
+            MapDataComboBoxSetup();
+            MapDataRoleComboBoxSetup();
+        }
+
+        private void MapDataComboBoxSetup()
+        {
+            foreach (string map in EscortMaps)
+            {
+                AllMaps.Add(map);
+            }
+            foreach (string map in AssaultMaps)
+            {
+                AllMaps.Add(map);
+            }
+            foreach (string map in ControlMaps)
+            {
+                AllMaps.Add(map);
+            }
+            foreach (string map in HybridMaps)
+            {
+                AllMaps.Add(map);
+            }
+            AllMaps.Sort();
+            MapData_ComboBox.ItemsSource = AllMaps;
+        }
+
+        private void MapDataRoleComboBoxSetup()
+        {
+            List<string> Roles = new List<string>();
+            Roles.Add("DPS");
+            Roles.Add("Tank");
+            Roles.Add("Heals");
+            MapData_Role_ComboBox.ItemsSource = Roles;
+        }
+
         #endregion
 
         #region Testing
 
-        
+
 
         #endregion
 
-
+        
     }
 }
