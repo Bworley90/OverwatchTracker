@@ -395,7 +395,7 @@ namespace Test5
                 {
                     if(defendWins > 0)
                     {
-                        MapData_Defend_TextBox.Text = Math.Round(defendWins / attackTotal * 100, 2).ToString() + "%";
+                        MapData_Defend_TextBox.Text = Math.Round(defendWins / defendTotal * 100, 2).ToString() + "%";
                     }
                     else
                     {
@@ -411,7 +411,7 @@ namespace Test5
                 {
                     if(attackWins > 0)
                     {
-                        MapData_Attack_TextBox.Text = Math.Round(attackWins / defendTotal * 100, 2).ToString() + "%";
+                        MapData_Attack_TextBox.Text = Math.Round(attackWins / attackTotal * 100, 2).ToString() + "%";
                     }
                     else
                     {
