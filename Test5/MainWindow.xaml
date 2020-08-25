@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test5"
         mc:Ignorable="d"
-        Title="Overwatch Game Tracker" Height="450" Width="1000" Closing="Window_Closing" Background="#FF807070">
+        Title="Overwatch Game Tracker" Height="450" Width="1000" Closing="Window_Closing" Background="#FF807070" ResizeMode="NoResize">
 
 
 
