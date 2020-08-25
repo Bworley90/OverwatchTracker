@@ -58,8 +58,7 @@ namespace Test5
             ControlMapsSetup();
             HybridMapsSetup();
         }
-
-        
+       
         private void EscortMapsSetup()
         {
             EscortMaps.Add("Dorado");
@@ -146,13 +145,17 @@ namespace Test5
             }
         }
 
-        private void mapTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateMapsMenu();
 
+        private void mapTypeComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            if(mapTypeComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+            UpdateMapsMenu();
         }
 
-        
+
 
         #endregion
 
@@ -264,9 +267,6 @@ namespace Test5
 
         #region Updating Text Fields
 
-
-
-
         public void GeneralWinsTotal() // Updating stats through for loops
         {
             DataRow[] rows;
@@ -302,7 +302,6 @@ namespace Test5
             GSTotalWins_TextBox.Text = gs.Wins.ToString();
         }
 
-
         public void TankWinsTotal()
         {
             GameCount("Role = 'Tank'", td.Total, TankTotalGames_TextBox);
@@ -317,7 +316,6 @@ namespace Test5
 
         }
 
-
         public void HealsWinTotal()
         {
             GameCount("Role = 'Heals'", hd.Total, HealsTotalGames_TextBox);
@@ -329,7 +327,6 @@ namespace Test5
             TableSearch("Role = 'Heals' AND Attacked = True", hd.AttackWin, hd.AttackTotal, HealsAttackWinPercentage_TextBox);
             TableSearch("Role = 'Heals' AND Attacked = False", hd.DefendWin, hd.DefendTotal, HealsDefendWinPercentage_TextBox);
         }
-
 
         public void DPSWinTotal()
         {
@@ -480,6 +477,7 @@ namespace Test5
             }
 
         }
+
         private void ClearData_Button_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbr = MessageBox.Show("Clear all data?", "Erase all", MessageBoxButton.YesNo);
@@ -508,7 +506,16 @@ namespace Test5
 
             row[2] = attackCheck.IsChecked;
             row[3] = winCheckBox.IsChecked;
-            row[4] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
+            if(roleComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("No Role selected. Please select a Role", "Role Error", MessageBoxButton.OK);
+                return;
+            }
+            else
+            {
+                row[4] = ((ComboBoxItem)roleComboBox.SelectedItem).Content.ToString();
+            }
+            
             if (mapComboBox.SelectedItem != null)
             {
                row[5] = mapComboBox.SelectedItem.ToString();
@@ -524,8 +531,8 @@ namespace Test5
             SaveCurrentSession();
 
             Stats();
+            ResetComboBoxes();
             dg.ItemsSource = dt.DefaultView;
-            MessageBox.Show("Match Saved", "Saved");
 
         }
 
@@ -558,7 +565,6 @@ namespace Test5
         {
             SaveFile();
         }
-
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -657,7 +663,16 @@ namespace Test5
             textbox.Text = totalGames.ToString();
         }
 
-
+        public void ResetComboBoxes()
+        {
+            roleComboBox.SelectedIndex = -1;
+            mapTypeComboBox.SelectedIndex = -1;
+            mapComboBox.SelectedIndex = -1;
+            attackCheck.IsChecked = false;
+            winCheckBox.IsChecked = false;
+            maps.Clear();
+            mapComboBox.Items.Clear();
+        }
 
         #endregion
 
@@ -700,6 +715,8 @@ namespace Test5
             MapData_Role_ComboBox.ItemsSource = Roles;
         }
 
+
+
         #endregion
 
         #region Testing
@@ -708,6 +725,6 @@ namespace Test5
 
         #endregion
 
-        
+       
     }
 }

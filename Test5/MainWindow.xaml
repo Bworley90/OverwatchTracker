@@ -27,7 +27,7 @@
 
         <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Left" Margin="153,286,0,0" VerticalAlignment="Top" Width="157" Click="submitButton_Click" FontSize="32" Height="50" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="Role:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <ComboBox x:Name="roleComboBox" HorizontalAlignment="Left" Margin="160,56,0,0" VerticalAlignment="Top" Width="150" Height="40" SelectedIndex="0" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" VerticalContentAlignment="Center" FontSize="24" Grid.ColumnSpan="2">
+        <ComboBox x:Name="roleComboBox" HorizontalAlignment="Left" Margin="160,56,0,0" VerticalAlignment="Top" Width="150" Height="40" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" VerticalContentAlignment="Center" FontSize="24" Grid.ColumnSpan="2">
             <ComboBoxItem Content="DPS"/>
             <ComboBoxItem Content="Tank"/>
             <ComboBoxItem Content="Heals"/>
@@ -38,7 +38,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="10,238,0,0" TextWrapping="Wrap" Text="Win:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
         <CheckBox x:Name="winCheckBox" Content="" HorizontalAlignment="Left" Margin="160,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.522,0.633" BorderThickness="5"/>
         <TextBlock HorizontalAlignment="Left" Margin="5,103,0,0" TextWrapping="Wrap" Text="Map Type:" VerticalAlignment="Top" Height="40" Width="125" FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-        <ComboBox x:Name="mapTypeComboBox" HorizontalAlignment="Left" Margin="160,103,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="mapTypeComboBox_SelectionChanged" Height="40" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24" Grid.ColumnSpan="2">
+        <ComboBox x:Name="mapTypeComboBox" HorizontalAlignment="Left" Margin="160,103,0,0" VerticalAlignment="Top" Width="150" Height="40" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="24" Grid.ColumnSpan="2" DropDownClosed="mapTypeComboBox_DropDownClosed">
             <ComboBoxItem Content="Hybrid"/>
             <ComboBoxItem Content="Control"/>
             <ComboBoxItem Content="Escort" />
