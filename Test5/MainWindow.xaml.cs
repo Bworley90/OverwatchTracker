@@ -443,6 +443,24 @@ namespace Test5
         #endregion
 
         #region Button Events
+        public void RemoveRow_Click(object sender, RoutedEventArgs e)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                dt.Rows.RemoveAt(dt.Rows.Count - 1);
+                gs.Games--;
+                gameNumber--;
+            }
+            gs.totalGames--;
+            Stats();
+
+        }
+
+        public void SaveCurrentSession_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
+            dt.WriteXml(@path, XmlWriteMode.WriteSchema);
+        }
 
         private void RemoveSelected_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -560,6 +578,11 @@ namespace Test5
 
             LoadFromFile();
             }
+
+        private void CloseApplication_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         private void SaveToFile_Button_Click(object sender, RoutedEventArgs e)
         {
