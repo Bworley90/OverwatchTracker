@@ -5,25 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test5"
         mc:Ignorable="d"
-        Title="Overwatch Stats Tracker" Height="475.022" Width="1007.149" Closing="Window_Closing" Background="#FF858484" ResizeMode="NoResize">
+        Title="Overwatch Stats Tracker" Height="475" Closing="Window_Closing" Background="#FF4A4C4E" Width="768">
 
 
-    <StackPanel Height="446" VerticalAlignment="Top">
-        <Menu Background="DarkGray" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" FontSize="28">
-            <MenuItem Header="File">
-                <MenuItem Header="Save" Click="SaveCurrentSession_Click"/>
+    <StackPanel Margin="0,0,0,-2">
+        <Menu x:Name="FileToolbar" Background="DarkGray" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" FontSize="28">
+            <MenuItem Header="File" FontSize="22">
+                <MenuItem Header="Save" Click="SaveCurrentSession_Click" />
                 <MenuItem Header="Save As" Click="SaveToFile_Button_Click"/>
                 <MenuItem Header="Open" Click="LoadFromFile_Button_Click"/>
                 <MenuItem Header="Export" Click="exportToExcel_Click"/>
                 <MenuItem Header="Exit" Click="CloseApplication_Click"/>
             </MenuItem>
-            <MenuItem Header="Edit">
+            <MenuItem Header="Edit" FontSize="22">
                 <MenuItem Header="Undo Last Log" Click="RemoveRow_Click"/>
+            </MenuItem>
+            <MenuItem Header="View" FontSize="22">
+                <MenuItem Header="Change Color Scheme">
+                    <MenuItem Header="Default" Click="Default_Click"        />
+                    <MenuItem Header="Dragons" Click="Dragon_Click"        />
+                    <MenuItem Header="Dynasty" Click="Dynasty_Click"       />
+                    <MenuItem Header="Excelsior" Click="Excelsior_Click"   />
+                    <MenuItem Header="Fuel" Click="Fuel_Click"             />
+                    <MenuItem Header="Fusion" Click="Fusion_Click"         />
+                    <MenuItem Header="Gladiators" Click="Gladiators_Click" />
+                    <MenuItem Header="Mayhem" Click="Mayhem_Click"         />
+                    <MenuItem Header="Mayhem 2020" Click="Mayhem_New_Click"/>
+                    <MenuItem Header="Shock" Click="Shock_Click"           />
+                    <MenuItem Header="Spitfire" Click="Spitfire_Click"     />
+                    <MenuItem Header="Uprising" Click="Uprising_Click"     />
+                    <MenuItem Header="Valiant" Click="Valiant_Click"       />
+                    <MenuItem Header="Outlaws" Click="Outlaws_Click"       />
+                </MenuItem>
             </MenuItem>
         </Menu>
 
 
-        <Grid Background="#FF858484" Margin="0,0,2,0" Height="404">
+        <Grid x:Name="BackgroundGrid" Background="#FF4A4C4E" Margin="0,0,2,0">
 
 
 
@@ -36,7 +54,7 @@
             <StackPanel Grid.Column="0">
 
                 <!--Match Setup-->
-                <TextBlock Text="Match Setup" Margin="0 0 0 15" VerticalAlignment="Top" TextAlignment="Center" FontSize="42" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" FontWeight="Bold" Grid.Column="0"/>
+                <TextBlock Text="Match Setup" Margin="0 0 0 15" VerticalAlignment="Top" TextAlignment="Center" FontSize="42" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" FontWeight="Bold" Grid.Column="0" Foreground="White"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -46,11 +64,11 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Role:"       FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Map Type:"   FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Map:"        FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Attacked:"   FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
-                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Win:"        FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Role:"       FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Map Type:"   FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Map:"        FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Attacked:"   FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0 10 0 16"  Text="Win:"        FontSize="32" TextAlignment="Center" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Foreground="White"/>
 
                     </StackPanel>
 
@@ -77,7 +95,7 @@
                         <CheckBox x:Name="attackCheck" Margin="0 10 0 30" HorizontalAlignment="Left" BorderThickness="5"/>
                         <CheckBox x:Name="winCheckBox" Margin="0 10 0 10" HorizontalAlignment="Left" BorderThickness="5"/>
 
-                        <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Center" Click="submitButton_Click" FontSize="32"  FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Width="167"/>
+                        <Button x:Name="submitButton" Content="Log Match" HorizontalAlignment="Center" Click="submitButton_Click" FontSize="32"  FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Width="167" Background="#FFFA9C1D"/>
 
                     </StackPanel>
 
@@ -90,48 +108,33 @@
 
             </StackPanel>
 
-            <!-- Match Setup-->
 
 
 
 
 
 
-            <TabControl Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black" Background="#FFDEDEDE">
-                <TabItem Header="General Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <Grid Background="#FFDEDEDE" Margin="0,0,0,-2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="149*"/>
-                            <RowDefinition Height="28*"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="152*"/>
-                            <ColumnDefinition Width="66*"/>
-                            <ColumnDefinition Width="217*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="10,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Games:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Wins:"    VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
+
+            <TabControl x:Name="TabController" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="White" Background="#FF4A4C4E">
+                <TabItem Header="General Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19" Background="White">
+                    <Grid>
+
+                        <StackPanel Grid.Column="0" Margin="10,0" >
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Games:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Total Wins:"    VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left"  Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
                             <Button x:Name="ClearData_Button" Content="Clear All Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="188" Click="ClearData_Button_Click" Height="30"/>
 
 
 
                         </StackPanel>
-                        <StackPanel Grid.Column="2" Margin="10 0 10 10" Grid.RowSpan="2">
+                        <StackPanel Grid.Column="0" Margin="10 0 10 10" Grid.RowSpan="2">
                             <TextBox x:Name="GSWinPercentage"        Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
                             <TextBox x:Name="GSTotalGames"           Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
                             <TextBox x:Name="GSControlWinPercentage" Margin="0 10 0 0" HorizontalAlignment="Right" Height="25"  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="150" FontFamily="Franklin Gothic Medium" TextAlignment="Center" IsReadOnly="True" Background="#FFE5E5E5" Padding="0" FontSize="18" BorderBrush="#FFACACAC" BorderThickness="1" Focusable="False" Grid.Column="1"/>
@@ -147,12 +150,6 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Map Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -186,39 +183,59 @@
 
                 </TabItem>
                 <TabItem Header="Match History" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <Grid Background="#FFE5E5E5">
+                    <Grid>
                         <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="18" Background="#FFDEDEDE" Margin="0,0,0,23"/>
                         <Button x:Name="RemoveSelected_Button" Content="Remove Selected" Margin="157,0,172,0" Height="23" VerticalAlignment="Bottom" Click="RemoveSelected_Button_Click"/>
 
                     </Grid>
                 </TabItem>
+                <TabItem Header="Current Session" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Total Games:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Win%:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Escorts:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Controls:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Assaults:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Hybrids:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Defends:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,5,10,5" Text="Attacks:" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"  Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBox x:Name="currentSession_Total_Textbox" HorizontalAlignment="Center"         IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_WinPercent_Textbox" HorizontalAlignment="Center"    IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Escorts_Textbox" HorizontalAlignment="Center"       IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Controls_Textbox" HorizontalAlignment="Center"      IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Assaults_Textbox" HorizontalAlignment="Center"      IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Hybrids_Textbox" HorizontalAlignment="Center"       IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Defends_Textbox" HorizontalAlignment="Center"       IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+                            <TextBox x:Name="CurrentSession_Attacks_Textbox" HorizontalAlignment="Center"       IsReadOnly="True" Margin="10 5 10 5" Foreground="Black" Height="25" Width="150" FontSize="24"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                </TabItem>
+
                 <TabItem Header="Tank Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <Grid Background="#FFDEDEDE">
+
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="10 0 10 10">
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0,10,10,0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.ColumnSpan="1" Foreground="White"/>
 
 
 
@@ -241,27 +258,22 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Healer Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <Grid Background="#FFDEDEDE">
+
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" Margin="10 0 10 10">
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Grid.Column="0" Foreground="White"/>
 
 
                         </StackPanel>
@@ -282,26 +294,21 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="DPS Stats" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <Grid Background="#FFDEDEDE">
+
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="10 0 10 10">
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Win Percentage:" VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Games:"          VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Control Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Assault Win %:"  VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Escort Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Hybrid Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Defend Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="0 10 10 0" TextWrapping="Wrap" Text="Attack Win %:"   VerticalAlignment="Top" FontSize="24" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" Height="25" Width="150" Foreground="White"/>
 
 
 

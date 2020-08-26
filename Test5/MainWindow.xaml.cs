@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using RenownsOverwatchProgram;
+using RenownsOverwatchProgram.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -27,9 +30,11 @@ namespace Test5
         TankData td = new TankData();
         HealsData hd = new HealsData();
         DPSData dd = new DPSData();
+        CurrentSession cs = new CurrentSession();
 
-        DataSet ds = new DataSet();
+        ColorScheme colorScheme = new ColorScheme();
         public int gameNumber = 1;
+        public int teamNumber = 0;
 
         // Map Lists
         List<string> maps = new List<string>();
@@ -47,6 +52,7 @@ namespace Test5
             SetupTable();
             LoadGeneralStatsFromXML();
             UpdateWindowItems();
+            LoadColorScheme();
         }
 
 
@@ -550,6 +556,7 @@ namespace Test5
 
             Stats();
             ResetComboBoxes();
+            CurrentSession(row);
             dg.ItemsSource = dt.DefaultView;
 
         }
@@ -562,22 +569,8 @@ namespace Test5
 
         private void LoadFromFile_Button_Click(object sender, RoutedEventArgs e)
         {
-            /* MessageBoxResult result = MessageBox.Show("Load from file? \n !!THIS WILL ERASE THE CURRENT LOGGED MATCHES!!", "Load File", MessageBoxButton.OKCancel);
-             if (result == MessageBoxResult.OK)
-             {
-                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTrackerData.xml");
-                 DataTable tempTable = new DataTable();
-                 FileStream stream = new FileStream(@path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                 tempTable.ReadXml(stream);
-                 dt = tempTable;
-                 stream.Close();
-                 dg.ItemsSource = dt.DefaultView;
-                 Stats();
-             }
-             */
-
             LoadFromFile();
-            }
+        }
 
         private void CloseApplication_Click(object sender, RoutedEventArgs e)
         {
@@ -742,12 +735,203 @@ namespace Test5
 
         #endregion
 
-        #region Testing
+        #region Team Colors
+        public void SaveColorScheme()
+        {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTracker_Settings.txt");
+            TextWriter writer = new StreamWriter(path);
+            writer.WriteLine(colorScheme.menuColor);
+            writer.WriteLine(colorScheme.toolbarColor);
+            writer.WriteLine(colorScheme.dataColor);
+            writer.Close();
+        }
+
+        public void LoadColorScheme()
+        {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OverwatchTracker_Settings.txt");
+            if (File.Exists(path))
+            {
+                TextReader tr = new StreamReader(path);
+                string menuColor = tr.ReadLine();
+                string toolbarColor = tr.ReadLine();
+                string dataColor = tr.ReadLine();
+
+                var color = (Color)ColorConverter.ConvertFromString(toolbarColor);
+                Brush brush = new SolidColorBrush(color);
+                var colorTwo = (Color)ColorConverter.ConvertFromString(menuColor);
+                Brush brushTwo = new SolidColorBrush(colorTwo);
+                var colorThree = (Color)ColorConverter.ConvertFromString(dataColor);
+                Brush brushThree = new SolidColorBrush(colorThree);
+
+                FileToolbar.Background = brush;
+                BackgroundGrid.Background = brushTwo;
+                TabController.Background = brushThree;
+            }
+            else
+            {
+                return;
+            }
+
+
+        }
+
+        public void Mayhem_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#FEDC01", "#000000", "#AF282F", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Mayhem_New_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#3DB2E3", "#000000", "#CF4691", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Outlaws_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#96CA4E", "#000000", "#96CA4E", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Fusion_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#F89D2A", "#000000", "#F89D2A", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Fuel_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#9EA2A3", "#0071CD", "#0B233F", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Dragon_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#FCE300", "#000000", "#D22730", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Shock_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#FC4C01", "#60636A", "#D7C152", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Valiant_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#2A7230", "#000000", "#E5D661", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Spitfire_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#59CAE8", "#1B2B3A", "#FF8201", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Uprising_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#EEDF00", "#000000", "#174B97", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Excelsior_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#F22431", "#181C39", "#2B58E9", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Gladiators_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#FFFFFF", "#381360", "#000000", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Dynasty_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#F22431", "#000000", "#9EA2A3", colorScheme);
+            SaveColorScheme();
+        }
+
+        public void Default_Click(object sender, RoutedEventArgs e)
+        {
+            TeamColors tc = new TeamColors();
+            tc.ChangeColorScheme(FileToolbar, BackgroundGrid, TabController, "#FFA9A9A9", "#FF4A4C4E", "#FF4A4C4E", colorScheme);
+            SaveColorScheme();
+        }
+
+
 
 
 
         #endregion
 
-       
+        #region Testing
+
+        public void CurrentSession(DataRow row)
+        {
+            cs.total++;
+            if(row[3].Equals(true))
+            {
+                cs.wins++;
+            }
+            if(row[1].Equals("Hyrbid"))
+            {
+                cs.hybridCount++;
+            }
+            else if(row[1].Equals("Escort"))
+            {
+                cs.escortCount++;
+            }
+            else if(row[1].Equals("Assault"))
+            {
+                cs.assaultCount++;
+            }
+            else if(row[1].Equals("Control"))
+            {
+                cs.controlCount++;
+            }
+            if(row[2].Equals(true))
+            {
+                cs.attacks++;
+            }
+            else if(row[2].Equals(false) && row[1].Equals("Control"))
+            {
+                
+            }
+            else
+            {
+                cs.defends++;
+            }
+
+            currentSession_Total_Textbox.Text = cs.total.ToString();
+            CurrentSession_WinPercent_Textbox.Text = Math.Round(cs.wins / cs.total * 100, 2).ToString() + "%";
+            CurrentSession_Escorts_Textbox.Text = cs.escortCount.ToString();
+            CurrentSession_Controls_Textbox.Text = cs.controlCount.ToString();
+            CurrentSession_Assaults_Textbox.Text = cs.assaultCount.ToString();
+            CurrentSession_Hybrids_Textbox.Text = cs.hybridCount.ToString();
+            CurrentSession_Defends_Textbox.Text = cs.defends.ToString();
+            CurrentSession_Attacks_Textbox.Text = cs.attacks.ToString();
+            
+        }
+
+
+
+        #endregion
+
     }
 }
