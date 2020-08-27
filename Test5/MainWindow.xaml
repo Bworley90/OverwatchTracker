@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test5"
         mc:Ignorable="d"
-        Title="Overwatch Stats Tracker" Height="475" Closing="Window_Closing" Background="#FF4A4C4E" Width="768">
+        Title="Overwatch Stats Tracker" Height="475.001" Closing="Window_Closing" Background="#FF4A4C4E" Width="988.777">
 
 
-    <StackPanel Margin="0,0,0,-2">
+    <StackPanel Margin="0,0,0,11">
         <Menu x:Name="FileToolbar" Background="DarkGray" FontFamily="/Overwatch Tracker;component/#BigNoodleTooOblique" FontSize="28">
             <MenuItem Header="File" FontSize="22">
                 <MenuItem Header="Save" Click="SaveCurrentSession_Click" />
@@ -41,7 +41,7 @@
         </Menu>
 
 
-        <Grid x:Name="BackgroundGrid" Background="#FF4A4C4E" Margin="0,0,2,0">
+        <Grid x:Name="BackgroundGrid" Background="#FF4A4C4E" Margin="0,0,2,0" Height="402">
 
 
 
@@ -184,8 +184,12 @@
                 </TabItem>
                 <TabItem Header="Match History" FontFamily="/Overwatch Tracker;component/Resources/#Koverwatch" FontSize="19">
                     <Grid>
-                        <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="18" Background="#FFDEDEDE" Margin="0,0,0,23"/>
-                        <Button x:Name="RemoveSelected_Button" Content="Remove Selected" Margin="157,0,172,0" Height="23" VerticalAlignment="Bottom" Click="RemoveSelected_Button_Click"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="42*"/>
+                            <RowDefinition Height="67*"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="dg" IsSynchronizedWithCurrentItem="False" MinColumnWidth="59" IsReadOnly="True" EnableColumnVirtualization="True" ColumnWidth="Auto" FontSize="18" Background="#FFDEDEDE" VerticalAlignment="Top" Height="304" Grid.RowSpan="2"/>
+                        <Button x:Name="RemoveSelected_Button" Content="Remove Selected" Margin="96,0,94,7" Height="23" VerticalAlignment="Bottom" Click="RemoveSelected_Button_Click" Grid.Row="1"/>
 
                     </Grid>
                 </TabItem>
