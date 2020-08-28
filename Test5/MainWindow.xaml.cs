@@ -889,7 +889,7 @@ namespace Test5
             {
                 cs.wins++;
             }
-            if(row[1].Equals("Hyrbid"))
+            if(row[1].Equals("Hybrid"))
             {
                 cs.hybridCount++;
             }
